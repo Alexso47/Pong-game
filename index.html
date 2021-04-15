@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="Alex Sanchez">
+	<meta name="title" content="Pong">
+	<meta name="description" content="Multiplayer game">
+	<meta name="keywords" content="Pong, mulitplayer, html, js, css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+	<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+	<div id='menu'>
+		<div id='playerLeft' class='player'>
+			<span id='playerLeftScore' class='score'>0</span>
+			<span id='playerLeftName' class='name'>Player 1</span>
+			<span id='editName1' class='editName'><i id="leftEdit" onclick=showInput(0) class="fas fa-edit"></i></span>
+			<form onsubmit=changeName(event,0)>
+				<input placeholder='press enter to confirm' class='name-input hideInput' id='leftInput' type="text"
+					maxlength="10">
+			</form>
+		</div>
+		<div id='playerRight' class='player'>
+			<span id='playerRightScore' class='score'>0</span>
+			<span id='playerRightName' class='name'>Player 2</span>
+			<span id='editName2' class='editName'><i id="rightEdit" onclick=showInput(1) class="fas fa-edit"></i></span>
+			<form onsubmit=changeName(event,1)>
+				<input placeholder='press enter to confirm' class='name-input hideInput' id='rightInput' type="text"
+					maxlength="10">
+			</form>
+		</div>
+		<div id='difficulty-div'>
+			<label id='modeNum' for='difficulty'></label>
+			<input id='mode' type="range" name='difficulty' min='1' max='5' />
+		</div>
+		<button onclick=handleStart()>Start</button>
+	</div>
+	<div id='pong'>
+		<div id="ball"></div>
+		<div id="bar1" class="bar"></div>
+		<div id="bar2" class="bar"></div>
+		<div id="middle-line"></div>
+	</div>
+	<div class='round' id='roundResult'>
+		<span id='roundWinner'></span>
+	</div>
+
+</body>
+
+<script type="text/javascript" src="index.js"></script>
+
+</html>

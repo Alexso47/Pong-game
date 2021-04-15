@@ -1,0 +1,266 @@
+body, html {
+    height: 100%;
+    background-color: black;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+}
+
+#menu {
+    background-color: #000;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    flex-wrap: wrap;
+}
+
+.player{
+    width: 50%;
+    z-index: 4;
+    font-size: 5em;
+    color: white;
+    background-color: transparent;
+    position: relative;
+}
+
+#playerLeft {
+    float: left
+}
+
+#playerLeft {
+    float: right
+}
+
+#playerLeftScore {
+    display: block;
+    user-select: none;
+}
+
+#playerRightScore {
+    display: block;
+    user-select: none;
+}
+
+.name {
+    width: 40%;
+    z-index: 5;
+    color: white;
+    user-select: none;
+    max-width: 50%;
+    max-height: 100px;
+    min-width:  50%;
+    min-height: 100px;
+    background-color: transparent;
+}
+
+#playerLeftName {
+    left: 20%;
+    padding-top: 3em;
+}
+
+#playerRightName {
+    right: 20%;
+    padding-top: 3em;
+}
+
+.editName { 
+    max-width: 10%;
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0.308);
+}
+
+#editName1 {
+    float: left;
+    margin-left: 80px;
+}
+
+#editName2 {
+    float: right;
+    margin-right: 80px;
+}
+
+.fas.fa-edit {
+    font-size: 25px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.fas.fa-edit:hover {
+    opacity: 50%;
+}
+
+.name-input {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: block;
+    width: 300px;
+    outline: none;
+    font-size: 25px;
+    padding: 15px;
+    margin: 1em auto;
+    background-color: transparent;
+    color: white;
+    border: white solid 1px;
+}
+
+.hideInput {
+    display: none;
+}
+
+
+.hideMenu {
+    animation: fadeOut 2s
+}
+
+#menu>button {
+    box-sizing: border-box;
+    cursor: pointer;
+    text-align: center;
+    width: 10em;
+    font-size: 2em;
+    padding: 1em;
+    outline: none;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.739);
+    border: none;
+    border-radius: 10%;
+    user-select: none;
+}
+
+#menu>button:hover {
+    background-color: rgba(124, 0, 0, 0.671);
+}
+
+#difficulty-div {
+    display: block;
+    width: 100%;
+}
+
+#difficulty-div>label {
+	color: white;
+	display: block;
+	width: 100%;
+	font-size: 25px;
+	padding-bottom: 1em;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type='range'] {
+      overflow: hidden;
+      width: 500px;
+      -webkit-appearance: none;
+      background-color: #b6b6b6;
+    }
+    
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 30px;
+      -webkit-appearance: none;
+      color: #ff0000;
+      margin-top: -1px;
+    }
+    
+    input[type='range']::-webkit-slider-thumb {
+      width: 30px;
+      -webkit-appearance: none;
+      height: 30px;
+      cursor: ew-resize;
+      background: #ffffff;
+      box-shadow: -300px 0 0 300px #ff0000;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.round {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.164);
+    color: white;
+    animation: blink 1s linear infinite;
+    user-select: none;
+}
+
+@keyframes blink {  
+    0% { 
+        opacity: 1.0; 
+    }
+
+    50% { 
+        opacity: 0.0; 
+    }
+
+    100% { 
+        opacity: 1.0; 
+    }
+}
+
+#pong {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.bar{
+    width: 20px;
+    height: 100px;
+    background: #000;
+    border: 2px solid #fff;
+    writing-mode: vertical-lr;
+    overflow:hidden;
+    color: white;
+    text-align: center;
+}
+
+#bar1{
+    top: 50px;
+    float: left; 
+    position: absolute;
+}
+#bar2{
+    top: 20px;
+    right:0px;
+    position: absolute;
+}
+
+#middle-line {
+    width: 50%;
+    height: 100%;
+    border-right: white dashed 2px;
+    z-index: 999
+}
+
+#ball{
+    width: 20px;
+    height: 20px;
+    background: #000;
+    position:absolute;
+    left: 10px;
+    top: 0px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+}
