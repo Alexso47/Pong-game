@@ -1,62 +1,67 @@
 let player1Wins = 0
 let player2Wins = 0
-let player1Name = playerLeftName.textContent
-let player2Name = playerRightName.textContent
-let gameMode = modeNum.textContent
+let player1Name = document.getElementById('playerLeftName').textContent
+let player2Name = document.getElementById('playerRightName').textContent
+let gameMode = document.getElementById('modeNum').textContent
 
 const TIME_BY_MODE = {
-    'difficulty 1': 100,
+    'difficulty 1': 15,
 
-    'difficulty 2': 75,
+    'difficulty 2': 12,
 
-    'difficulty 3': 40,
+    'difficulty 3': 10,
 
-    'difficulty 4': 30,
+    'difficulty 4': 7,
 
-    'difficulty 5': 20
+    'difficulty 5': 4
 }
 
 window.onload = () => {
-    modeNum.textContent = 'difficulty ' + mode.value
+    document.getElementById('modeNum').textContent = 'difficulty ' + document.getElementById('mode').value
 }
 
-mode.addEventListener('change', (event) => {
-    modeNum.textContent = 'difficulty ' + event.target.value
+document.getElementById('mode').addEventListener('change', (event) => {
+    document.getElementById('modeNum').textContent = 'difficulty ' + event.target.value
 })
 
 const showInput = (opt) => {
-    const input = opt === 0 ? leftInput : rightInput
+    const input = opt === 0 ? document.getElementById('leftInput') : document.getElementById('rightInput')
     input.classList.toggle('hideInput')
 }
 
 const changeName = (event, opt) => {
     event.preventDefault()
-    const input = opt === 0 ? leftInput : rightInput
-    const name = opt === 0 ? playerLeftName : playerRightName
+    const input = opt === 0 ? document.getElementById('leftInput') : document.getElementById('rightInput')
+    const name = opt === 0 ? document.getElementById('playerLeftName') : document.getElementById('playerRightName')
     name.textContent = input.value !== '' ? input.value : name.textContent
     showInput(opt)
 }
 
 const handleStart = () => {
-    menu.classList.toggle("hideMenu")
+    document.getElementById('menu').classList.toggle("hideMenu")
     setTimeout(() => {
-        player1Name = playerLeftName.textContent
-        player2Name = playerRightName.textContent
-        bar1.textContent = playerLeftName.textContent
-        bar2.textContent = playerRightName.textContent
-        gameMode = modeNum.textContent
-        menu.style.display = 'none'
-        pong.style.display = 'block'
+        player1Name = document.getElementById('playerLeftName').textContent
+        player2Name = document.getElementById('playerRightName').textContent
+        document.getElementById('bar1').textContent = document.getElementById('playerLeftName').textContent
+        document.getElementById('bar2').textContent = document.getElementById('playerRightName').textContent
+        gameMode = document.getElementById('modeNum').textContent
+        document.getElementById('menu').style.display = 'none'
+        document.getElementById('pong').style.display = 'block'
         game()
     }, 1800)
 }
 
 const game = function () {
+    let barPlayer1 = document.getElementById('bar1')
+    let barPlayer2 = document.getElementById('bar2')
+    let gameBall = document.getElementById('ball')
+
     let time = TIME_BY_MODE[gameMode]
-    let movement = 20;
-    let movementBar = 20;
+    let movement = 7;
+    let movementBar = 10;
     let width = document.documentElement.clientWidth - movement;
     let height = document.documentElement.clientHeight - movement;
+
     let controlGame;
     let player1;
     let player2;
@@ -69,9 +74,12 @@ const game = function () {
     }
 
     const init = () => {
-        ball.style.left = 0
-        ball.state = 1
-        ball.direction = 1 // right 1, left 2
+        let widthRandom = Math.random() * 95
+        let heightRandom = Math.random() * 100
+        gameBall.style.left = widthRandom + '%'
+        gameBall.style.top = heightRandom + '%'
+        gameBall.state = widthRandom < 50 ? 1 : 3
+        gameBall.direction = widthRandom < 50 ? 1 : 2 // right 1, left 2
 
         player1 = {
             keyPress: false,
@@ -87,9 +95,8 @@ const game = function () {
     const stop = () => {
         clearInterval(controlGame)
         document.body.style.background = 'red'
-        roundWinner.textContent = winner == 0 ? player1Name + ' wins' : player2Name + ' wins'
-        console.log(roundWinner)
-        roundResult.style.display = 'flex'
+        document.getElementById('roundWinner').textContent = winner == 0 ? player1Name + ' wins' : player2Name + ' wins'
+        document.getElementById('roundResult').style.display = 'flex'
 
         setTimeout(() => {
             if (winner === 0) {
@@ -98,14 +105,14 @@ const game = function () {
             else {
                 player2Wins++
             }
-            playerLeftScore.textContent = player1Wins
-            playerRightScore.textContent = player2Wins
+            document.getElementById('playerLeftScore').textContent = player1Wins
+            document.getElementById('playerRightScore').textContent = player2Wins
 
             document.body.style.background = 'black'
-            roundResult.style.display = 'none'
-            menu.classList.toggle("hideMenu")
-            menu.style.display = 'flex'
-            pong.style.display = 'none'
+            document.getElementById('roundResult').style.display = 'none'
+            document.getElementById('menu').classList.toggle("hideMenu")
+            document.getElementById('menu').style.display = 'flex'
+            document.getElementById('pong').style.display = 'none'
 
         }, 5000)
     }
@@ -117,11 +124,11 @@ const game = function () {
     }
 
     const checkIfLost = () => {
-        if (ball.offsetLeft >= width) {
+        if (gameBall.offsetLeft >= width) {
             winner = 0
             stop()
         }
-        if (ball.offsetLeft <= 0) {
+        if (gameBall.offsetLeft <= 0) {
             winner = 1
             stop()
         }
@@ -130,80 +137,80 @@ const game = function () {
     // Ball stuff
     const moveBall = () => {
         checkStateBall()
-        switch (ball.state) {
+        switch (gameBall.state) {
             case 1: // right down
-                ball.style.left = (ball.offsetLeft + movement) + 'px'
-                ball.style.top = (ball.offsetTop + movement) + 'px'
+                gameBall.style.left = (gameBall.offsetLeft + movement) + 'px'
+                gameBall.style.top = (gameBall.offsetTop + movement) + 'px'
                 break
             case 2: // right up
-                ball.style.left = (ball.offsetLeft + movement) + 'px'
-                ball.style.top = (ball.offsetTop - movement) + 'px'
+                gameBall.style.left = (gameBall.offsetLeft + movement) + 'px'
+                gameBall.style.top = (gameBall.offsetTop - movement) + 'px'
                 break
             case 3: // left down
-                ball.style.left = (ball.offsetLeft - movement) + 'px'
-                ball.style.top = (ball.offsetTop + movement) + 'px'
+                gameBall.style.left = (gameBall.offsetLeft - movement) + 'px'
+                gameBall.style.top = (gameBall.offsetTop + movement) + 'px'
                 break
             case 4: // left up
-                ball.style.left = (ball.offsetLeft - movement) + 'px'
-                ball.style.top = (ball.offsetTop - movement) + 'px'
+                gameBall.style.left = (gameBall.offsetLeft - movement) + 'px'
+                gameBall.style.top = (gameBall.offsetTop - movement) + 'px'
                 break
         }
     }
 
     const checkStateBall = () => {
         if (collidePlayer2()) {
-            ball.direction = 2
-            if (ball.state === 1) {
-                ball.state = 3
+            gameBall.direction = 2
+            if (gameBall.state === 1) {
+                gameBall.state = 3
             }
-            if (ball.state === 2) {
-                ball.state = 4
+            if (gameBall.state === 2) {
+                gameBall.state = 4
             }
         }
         else if (collidePlayer1()) {
-            ball.direction = 1
-            if (ball.state === 3) {
-                ball.state = 1
+            gameBall.direction = 1
+            if (gameBall.state === 3) {
+                gameBall.state = 1
             }
-            if (ball.state === 4) {
-                ball.state = 2
+            if (gameBall.state === 4) {
+                gameBall.state = 2
             }
         }
         ballMechanics()
     }
 
     const ballMechanics = () => {
-        if (ball.direction === 1) {
-            if (ball.offsetTop >= height) {
-                ball.state = 2
+        if (gameBall.direction === 1) {
+            if (gameBall.offsetTop >= height) {
+                gameBall.state = 2
             }
-            else if (ball.offsetTop <= 0) {
-                ball.state = 1
+            else if (gameBall.offsetTop <= 0) {
+                gameBall.state = 1
             }
         } else {
-            if (ball.offsetTop >= height) {
-                ball.state = 4
+            if (gameBall.offsetTop >= height) {
+                gameBall.state = 4
             }
-            if (ball.offsetTop <= 0) {
-                ball.state = 3
+            if (gameBall.offsetTop <= 0) {
+                gameBall.state = 3
             }
         }
     }
 
     // game logic
     const collidePlayer1 = () => {
-        if (ball.offsetLeft <= (bar1.clientWidth) &&
-            ball.offsetTop >= bar1.offsetTop &&
-            ball.offsetTop <= (bar1.offsetTop + bar1.clientHeight)) {
+        if (gameBall.offsetLeft <= (barPlayer1.clientWidth) &&
+            gameBall.offsetTop >= barPlayer1.offsetTop &&
+            gameBall.offsetTop <= (barPlayer1.offsetTop + barPlayer1.clientHeight)) {
             return true;
         }
         return false
     }
 
     const collidePlayer2 = () => {
-        if (ball.offsetLeft >= (width - bar2.clientWidth) &&
-            ball.offsetTop >= bar2.offsetTop &&
-            ball.offsetTop <= (bar2.offsetTop + bar2.clientHeight)) {
+        if (gameBall.offsetLeft >= (width - barPlayer2.clientWidth) &&
+            gameBall.offsetTop >= barPlayer2.offsetTop &&
+            gameBall.offsetTop <= (barPlayer2.offsetTop + barPlayer2.clientHeight)) {
             return true;
         }
         return false
@@ -212,17 +219,17 @@ const game = function () {
     // Movement and key detection
     const moveBar = () => {
         if (player1.keyPress) {
-            if (player1.key == 'KeyQ' && bar1.offsetTop >= 0)
-                bar1.style.top = (bar1.offsetTop - movementBar) + "px";
-            if (player1.key == 'KeyA' && (bar1.offsetTop + bar1.clientHeight) <= height)
-                bar1.style.top = (bar1.offsetTop + movementBar) + "px";
+            if (player1.key == 'KeyQ' && barPlayer1.offsetTop >= 0)
+                barPlayer1.style.top = (barPlayer1.offsetTop - movementBar) + "px";
+            if (player1.key == 'KeyA' && (barPlayer1.offsetTop + barPlayer1.clientHeight) <= height)
+                barPlayer1.style.top = (barPlayer1.offsetTop + movementBar) + "px";
 
         }
         if (player2.keyPress) {
-            if (player2.key == 'KeyO' && bar2.offsetTop >= 0)
-                bar2.style.top = (bar2.offsetTop - movementBar) + "px";
-            if (player2.key == 'KeyL' && (bar2.offsetTop + bar2.clientHeight) <= height)
-                bar2.style.top = (bar2.offsetTop + movementBar) + "px";
+            if (player2.key == 'KeyO' && barPlayer2.offsetTop >= 0)
+                barPlayer2.style.top = (barPlayer2.offsetTop - movementBar) + "px";
+            if (player2.key == 'KeyL' && (barPlayer2.offsetTop + barPlayer2.clientHeight) <= height)
+                barPlayer2.style.top = (barPlayer2.offsetTop + movementBar) + "px";
         }
     }
 
