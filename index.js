@@ -11,9 +11,9 @@ const TIME_BY_MODE = {
 
     'difficulty 3': 10,
 
-    'difficulty 4': 7,
+    'difficulty 4': 8,
 
-    'difficulty 5': 4
+    'difficulty 5': 6
 }
 
 window.onload = () => {
@@ -114,7 +114,7 @@ const game = function () {
             document.getElementById('menu').style.display = 'flex'
             document.getElementById('pong').style.display = 'none'
 
-        }, 5000)
+        }, 3000)
     }
 
     const play = () => {
